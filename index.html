@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FishiClub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gochi+Hand&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+</head>
+
+<body class="container mx-auto max-w-xl font-['Gochi_Hand'] text-sky-600 text-7xl py-3">
+    <div class="flex flex-col items-center justify-center">
+        <div class="underline mb-8 text-sky-700 text-8xl">FishiClub</div>
+        <div class="bg-sky-700 text-white text-center rounded-lg shadow-lg w-64">Time</div>
+        <div>
+            <button id="decrementTime" class="hover:text-sky-900">-</button>
+            <span id="timeCounter">0</span>
+            <button id="incrementTime" class="hover:text-sky-900">+</button>
+        </div>
+        <svg viewBox="0 8 36 28" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+            aria-hidden="true" role="img" class="w-64 my-8" preserveAspectRatio="xMidYMid meet" fill="#000000">
+            <path fill="#3B88C3"
+                d="M32.153 24c0-1 1.523-6.212 3.047-7.735c1.522-1.523 0-3.166-1.523-3.166c-3.405 0-9.139 6.901-9.139 10.901c0 5 5.733 10.424 9.139 10.424c1.523 0 3.046-1.404 1.523-2.928C33.677 29.974 32.153 26 32.153 24z">
+            </path>
+            <path fill="#3B88C3"
+                d="M9.021 14.384c0-3.046 1.497-6.093 3.02-6.093c4.569 0 13.322 4.823 14.845 12.439c1.524 7.616-17.865-6.346-17.865-6.346zm4.854 18.278c1.523 1.523 4.57 3.047 7.617 3.047c3.046 0-3.111-4.189-1.523-6.092c2.18-2.617-6.094 3.045-6.094 3.045z">
+            </path>
+            <path
+                d="M2.071 28.727c.761-2.285.19-3.935-1.143-5.584c-1.333-1.651 3.872-1.904 5.585.381s5.713 6.281 2.158 6.22c-3.553-.065-6.6-1.017-6.6-1.017z"
+                fill="#000000"></path>
+            <path fill="#55ACEE"
+                d="M.168 23.488c.959.874 7.223 4.309 7.165 5.137c-.058.828-2.279-.088-3.105-.279c-1.485-.342-1.905-.598-2.317-.526c-.84.321-.554 1.201-.242 1.704c1.498 2.61 7.286 4.662 12.16 4.662c8.412 0 16.802-7.615 16.802-10.662c0-3.046-9.345-10.663-17.757-10.663C4.483 12.86.18 18.922.168 23.488z">
+            </path>
+            <path d="M7 17a2 2 0 1 1 .001 3.999A2 2 0 0 1 7 17z" fill="#000000"></path>
+            <path fill="#269"
+                d="M15.08 29.98a.997.997 0 0 1-.885-1.463c1.585-3.034 2.218-5.768.154-9.243a1 1 0 0 1 1.72-1.022c2.693 4.535 1.46 8.202-.102 11.191a.999.999 0 0 1-.887.537z">
+            </path>
+        </svg>
+        <div class="bg-sky-700 text-white text-center rounded-lg shadow-lg w-64">Fishes</div>
+        <div>
+            <button id="decrement" class="hover:text-sky-900">-</button>
+            <span id="counter">0</span>
+            <button id="increment" class="hover:text-sky-900">+</button>
+        </div>
+        <button id="resetBoth"
+            class="text-3xl hover:text-sky-900 border-2 w-64 self-center hover:bg-sky-700 hover:text-white rounded-lg">Reset</button>
+    </div>
+    <script>
+        const counterElement = document.getElementById('counter');
+        let count = parseInt(localStorage.getItem('counterValue')) || 0;
+
+        counterElement.textContent = count.toFixed(0);
+
+        document.getElementById('increment').addEventListener('click', () => {
+            count += 1;
+            updateCounter();
+        });
+
+        document.getElementById('decrement').addEventListener('click', () => {
+            if (count > 0) {
+                count -= 1;
+                updateCounter();
+            }
+        });
+
+        function updateCounter() {
+            counterElement.textContent = count.toFixed(0);
+            localStorage.setItem('counterValue', count);
+        }
+
+        const timeCounterElement = document.getElementById('timeCounter');
+        let timeCount = parseFloat(localStorage.getItem('timeCounterValue')) || 0;
+
+        timeCounterElement.textContent = timeCount.toFixed(1);
+
+        document.getElementById('incrementTime').addEventListener('click', () => {
+            timeCount += 0.5;
+            updateTimeCounter();
+        });
+
+        document.getElementById('decrementTime').addEventListener('click', () => {
+            if (timeCount > 0) {
+                timeCount -= 0.5;
+                updateTimeCounter();
+            }
+        });
+
+        function updateTimeCounter() {
+            timeCounterElement.textContent = timeCount.toFixed(1);
+            localStorage.setItem('timeCounterValue', timeCount);
+        }
+
+        document.getElementById('resetBoth').addEventListener('click', () => {
+            const confirmed = confirm("Are you sure you want to reset both counters?");
+            if (confirmed) {
+                count = 0;
+                timeCount = 0;
+                updateCounter();
+                updateTimeCounter();
+                localStorage.removeItem('counterValue');
+                localStorage.removeItem('timeCounterValue');
+            }
+        });
+    </script>
+
+</body>
+
+</html>
